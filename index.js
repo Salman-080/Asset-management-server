@@ -971,15 +971,22 @@ async function run() {
 
             const query = { _id: new ObjectId(assetId) };
 
-            const updateDoc = {
-                $set: {
-                    assetName: assetInfos.assetName,
-                    assetImage: assetInfos.assetImage,
-                    assetQuantity: parseInt(assetInfos.assetQuantity),
-                    assetType: assetInfos.assetType
-                }
+            const updateFields = {
+                assetName: assetInfos.assetName,
+                assetQuantity: parseInt(assetInfos.assetQuantity),
+                assetType: assetInfos.assetType
+            };
+        
+        
+            if (assetInfos.assetImage) {
+                updateFields.assetImage = assetInfos.assetImage;
             }
 
+            const updateDoc = {
+
+                $set: updateFields
+            }
+            // console.log(assetInfos, "updating assetinfos")
             const result = await productCollections.updateOne(query, updateDoc);
             res.send(result);
         })
