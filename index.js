@@ -1172,9 +1172,10 @@ async function run() {
 
         app.post("/addMarkedToTeam", async (req, res) => {
             const membersData = req.body;
-            console.log(membersData);
+            console.log("membersdata",membersData);
 
             const membersArray = Object.values(membersData);
+            console.log("membersarray", membersArray)
             const updateDoc = {
                 $set: {
                     role: "employee"
